@@ -9,7 +9,7 @@ const routes = [
     component: ViewNotes,
   },
   {
-    path: "/",
+    path: "/stats",
     name: "stats",
     component: ViewStats,
   },

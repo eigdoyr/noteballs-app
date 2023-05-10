@@ -14,7 +14,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
@@ -34,13 +34,13 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100vh; */
 }
 
-h1 {
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
@@ -73,7 +73,7 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+}  */
 
 @media (prefers-color-scheme: light) {
   :root {
