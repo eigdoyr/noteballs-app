@@ -42,10 +42,6 @@
 </template>
 
 <script setup>
-/*
-imports 
-*/
-
 import { ref } from "vue";
 
 /*
