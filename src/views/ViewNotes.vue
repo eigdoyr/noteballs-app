@@ -1,6 +1,6 @@
 <template>
   <div class="notes">
-    <AddEditNote v-model="newNote">
+    <AddEditNote v-model="newNote" ref="addEditNoteRef">
       <template #buttons>
         <button
           @click="addNote"
@@ -56,11 +56,11 @@ const storeNotes = useStoreNotes();
  */
 
 const newNote = ref("");
-const newNoteRef = ref(null);
+const addEditNoteRef = ref("null");
 
 const addNote = () => {
   storeNotes.addNote(newNote.value);
   newNote.value = ""; // Clear textarea after adding new note
-  newNoteRef.value.focus(); // Focus on textarea after entering a new note
+  addEditNoteRef.value.focusTextArea();
 };
 </script>
