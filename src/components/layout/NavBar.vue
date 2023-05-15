@@ -26,8 +26,15 @@
       >
         <div class="navbar-end">
           <div class="navbar-item">
-            <RouterLink to="/" class="navbar-item"> Notes </RouterLink>
             <RouterLink
+              @click="showMobileNav = false"
+              to="/"
+              class="navbar-item"
+            >
+              Notes
+            </RouterLink>
+            <RouterLink
+              @click="showMobileNav = false"
               to="/stats"
               class="navbar-item"
               active-class="is-active"
