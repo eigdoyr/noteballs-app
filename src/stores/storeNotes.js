@@ -1,39 +1,79 @@
 import { defineStore } from "pinia";
+import {
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "@/js/firebase";
+
+const notesCollectionRef = collection(db, "notes");
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
     return {
       notes: [
-        {
-          id: "id1",
-          content: "lorem pinia 🍍",
-        },
-        {
-          id: "id2",
-          content: "This is a note. Woo! I need to add lorem ipsum ...",
-        },
+        // {
+        //   id: "id1",
+        //   content: "lorem pinia 🍍",
+        // },
+        // {
+        //   id: "id2",
+        //   content: "This is a note. Woo! I need to add lorem ipsum ...",
+        // },
       ],
     };
   },
   actions: {
-    addNote(newNoteContent) {
+    async getNotes() {
+      // const querySnapshot = await getDocs(collection(db, "notes"));
+      // querySnapshot.forEach((doc) => {
+      //   // console.log(doc.id, " => ", doc.data());
+      //   let note = {
+      //     id: doc.id,
+      //     content: doc.data().content,
+      //   };
+      //   this.notes.push(note);
+      // });
+      onSnapshot(notesCollectionRef, (querySnapshot) => {
+        let notes = [];
+        querySnapshot.forEach((doc) => {
+          let note = {
+            id: doc.id,
+            content: doc.data().content,
+          };
+          notes.push(note);
+        });
+        this.notes = notes;
+      });
+    },
+    async addNote(newNoteContent) {
       let currentDate = new Date().getTime(),
         id = currentDate.toString(); // Generate fake ID using timestamp; could use uuid npm v4
 
-      let note = {
-        id,
-        content: newNoteContent,
-      };
+      // let note = {
+      //   id,
+      //   content: newNoteContent,
+      // };
 
-      this.notes.unshift(note);
+      // this.notes.unshift(note);
+
+      await setDoc(doc(notesCollectionRef, id), {
+        content: newNoteContent,
+      });
     },
-    deleteNote(idToDelete) {
-      this.notes = this.notes.filter((note) => note.id !== idToDelete);
+    async deleteNote(idToDelete) {
+      // this.notes = this.notes.filter((note) => note.id !== idToDelete);
+      await deleteDoc(doc(notesCollectionRef, idToDelete));
     },
-    updateNote(id, content) {
-      let index = this.notes.findIndex((note) => note.id === id);
-      this.notes[index].content = content;
+    async updateNote(id, content) {
+      // let index = this.notes.findIndex((note) => note.id === id);
+      // this.notes[index].content = content;
+      await updateDoc(doc(notesCollectionRef, id), {
+        content,
+      });
     },
   },
   getters: {
