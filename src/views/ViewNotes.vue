@@ -15,8 +15,22 @@
         </button>
       </template>
     </AddEditNote>
+    <progress
+      v-if="!storeNotes.notesLoaded"
+      class="progress is-large is-success"
+      max="100"
+    />
 
-    <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
+    <template v-else>
+      <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
+
+      <div
+        v-if="!storeNotes.notes.length"
+        class="is-size-4 has-text-centered ahs-text-grey-light is-family-monospace py-6"
+      >
+        No notes here yet... 😴💤
+      </div>
+    </template>
   </div>
 </template>
 

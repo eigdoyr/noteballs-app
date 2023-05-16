@@ -3,13 +3,16 @@ import {
   collection,
   onSnapshot,
   doc,
-  setDoc,
+  addDoc,
   deleteDoc,
   updateDoc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "@/js/firebase";
 
 const notesCollectionRef = collection(db, "notes");
+const notesCollectionQuery = query(notesCollectionRef, orderBy("date", "desc"));
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
@@ -24,10 +27,12 @@ export const useStoreNotes = defineStore("storeNotes", {
         //   content: "This is a note. Woo! I need to add lorem ipsum ...",
         // },
       ],
+      notesLoaded: false,
     };
   },
   actions: {
     async getNotes() {
+      this.notesLoaded = false;
       // const querySnapshot = await getDocs(collection(db, "notes"));
       // querySnapshot.forEach((doc) => {
       //   // console.log(doc.id, " => ", doc.data());
@@ -37,21 +42,24 @@ export const useStoreNotes = defineStore("storeNotes", {
       //   };
       //   this.notes.push(note);
       // });
-      onSnapshot(notesCollectionRef, (querySnapshot) => {
+      onSnapshot(notesCollectionQuery, (querySnapshot) => {
         let notes = [];
         querySnapshot.forEach((doc) => {
           let note = {
             id: doc.id,
             content: doc.data().content,
+            date: doc.data().date,
           };
           notes.push(note);
         });
+
         this.notes = notes;
+        this.notesLoaded = true;
       });
     },
     async addNote(newNoteContent) {
       let currentDate = new Date().getTime(),
-        id = currentDate.toString(); // Generate fake ID using timestamp; could use uuid npm v4
+        date = currentDate.toString(); // Generate fake ID using timestamp; could use uuid npm v4
 
       // let note = {
       //   id,
@@ -60,8 +68,14 @@ export const useStoreNotes = defineStore("storeNotes", {
 
       // this.notes.unshift(note);
 
-      await setDoc(doc(notesCollectionRef, id), {
+      // await setDoc(doc(notesCollectionRef, id), {
+      //   content: newNoteContent,
+      //   id,
+      // });
+
+      await addDoc(notesCollectionRef, {
         content: newNoteContent,
+        date,
       });
     },
     async deleteNote(idToDelete) {
