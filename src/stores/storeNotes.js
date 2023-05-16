@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { db } from "@/js/firebase";
 
 export const useStoreNotes = defineStore("storeNotes", {
   state: () => {
@@ -10,7 +11,7 @@ export const useStoreNotes = defineStore("storeNotes", {
         },
         {
           id: "id2",
-          content: "This is a shorter note. Woo!",
+          content: "This is a note. Woo! I need to add lorem ipsum ...",
         },
       ],
     };

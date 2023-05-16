@@ -48,7 +48,6 @@ const props = defineProps({
  */
 
 const storeNotes = useStoreNotes();
-// Count character length
 const characterLength = computed(() => {
   let length = props.note.content.length;
   let description = length > 1 ? "characters" : "character";
