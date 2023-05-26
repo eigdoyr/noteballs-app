@@ -1,7 +1,11 @@
-# Vue 3 + Vite
+# Noteballs App 📒
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Full stack app built with Vue 3 Composition API, Pinia, Firebase, Bulma, Vite
 
-## Recommended IDE Setup
+- Add, edit and delete note
+- Display list of notes and each note shows number of characters
+- Register / Login 
+- Sats page that shows number of notes, total number of characters of all notes
+- View the optimal layout for the app depending on their device's screen size
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
